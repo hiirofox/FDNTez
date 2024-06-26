@@ -28,8 +28,8 @@ extern "C" {
 		{
 			int input_posl = (pdat->posl[i] + pdat->dlytimel[i]) % FDN_MAX_DELAY;
 			int input_posr = (pdat->posr[i] + pdat->dlytimer[i]) % FDN_MAX_DELAY;
-			float fdbkl = matl[i] * pdat->g1 + pdat->fdbkl[i] * pdat->g2;
-			float fdbkr = matr[i] * pdat->g1 + pdat->fdbkr[i] * pdat->g2;
+			float fdbkl = matl[i] * pdat->g1[i] + pdat->fdbkl[i] * pdat->g2[i];
+			float fdbkr = matr[i] * pdat->g1[i] + pdat->fdbkr[i] * pdat->g2[i];
 			pdat->datal[i][input_posl] = input.l * pdat->b + fdbkl * (1.0 - pdat->sep) + fdbkr * (pdat->sep);
 			pdat->datar[i][input_posr] = input.r * pdat->b + fdbkr * (1.0 - pdat->sep) + fdbkl * (pdat->sep);
 		}
@@ -62,9 +62,11 @@ extern "C" {
 	{
 		for (int i = 0; i < FDN_DELAY_NUM; ++i)
 		{
-
-			int bl = __delay_M16[i] * size_l;
-			int br = __delay_M16[i] * size_r;
+			//int bl = __delay_M16[i] * size_l;//FDN_DELAY_NUM=16时可以用 
+			//int br = __delay_M16[i] * size_r;
+			float a = (float)(i + 1) / FDN_DELAY_NUM;
+			int bl = (pow(mode + 1.0, a) - 1.0) * size_l * FDN_MAX_DELAY;//这个也是玄学 
+			int br = (pow(mode + 1.0, a) - 1.0) * size_r * FDN_MAX_DELAY;
 			if (bl >= FDN_MAX_DELAY)bl = FDN_MAX_DELAY - 1;
 			if (br >= FDN_MAX_DELAY)br = FDN_MAX_DELAY - 1;
 			if (bl < 0)bl = 0;
@@ -91,8 +93,13 @@ extern "C" {
 
 		pdat->b = 1.0;//关于b和c咋调，文档也没有说明。。。
 		pdat->c = 1.0;
-		pdat->g1 = feedback1;
-		pdat->g2 = feedback2;
+		for (int i = 0; i < FDN_DELAY_NUM; ++i)
+		{
+			pdat->g1[i] = feedback1;
+			pdat->g2[i] = exp((double)pdat->dlytimel[i] / 48000.0 * log(feedback2) / log(2.71828182));
+			//如果feedback是一样的话，对于不同长度的delay，每个delay的衰减时间不一样
+			//我这个是为了平衡衰减时间
+		}
 	}
 
 	void FDNApplyHadamardMatrix(FDNData* pdat)
