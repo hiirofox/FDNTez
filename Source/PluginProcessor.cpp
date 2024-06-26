@@ -38,7 +38,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout FDNTezAudioProcessor::create
 	layout.add(std::make_unique<juce::AudioParameterFloat>("sizmode", "mode", 0, 1.0, 0.75));
 
 	layout.add(std::make_unique<juce::AudioParameterFloat>("sep", "SEPARATE", 0, 1.0, 0.5));
-	layout.add(std::make_unique<juce::AudioParameterFloat>("fdbk", "FEEDBACK", 0, 1.0, 0.0));
+	layout.add(std::make_unique<juce::AudioParameterFloat>("fdbk1", "FEEDBACK1", 0, 1.0, 0.0));
+	layout.add(std::make_unique<juce::AudioParameterFloat>("fdbk2", "FEEDBACK2", 0, 1.0, 0.0));
 
 	layout.add(std::make_unique<juce::AudioParameterFloat>("dry", "DRY", 0, 1.0, 0.25));
 	layout.add(std::make_unique<juce::AudioParameterFloat>("wet", "WET", 0, 1.0, 0.75));
@@ -120,8 +121,8 @@ void FDNTezAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 	// initialisation that you need..
 	FDNInit(&revb);
 	//FDNApplyHadamardMatrix(&revb);
-	FDNApplyRandomMatrix(&revb);
-	//FDNApplyHouseholderMatrix(&revb);
+	//FDNApplyRandomMatrix(&revb);
+	FDNApplyHouseholderMatrix(&revb);
 }
 
 void FDNTezAudioProcessor::releaseResources()
@@ -172,14 +173,15 @@ void FDNTezAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::
 	float sizer = *Params.getRawParameterValue("sizer");
 	float sizmode = *Params.getRawParameterValue("sizmode");
 	float sep = *Params.getRawParameterValue("sep");
-	float fdbk = *Params.getRawParameterValue("fdbk");
+	float fdbk1 = *Params.getRawParameterValue("fdbk1");
+	float fdbk2 = *Params.getRawParameterValue("fdbk2");
 	float dry = *Params.getRawParameterValue("dry");
 	float wet = *Params.getRawParameterValue("wet");
 
 	SetFDNRoomSize(&revb, sizel, sizer, sizmode * sizmode);
 	SetFDNSeparate(&revb, sep);
 	SetFDNDryWet(&revb, dry, wet);
-	SetFDNFeedback(&revb, fdbk * fdbk * 100.0);
+	SetFDNFeedback(&revb, fdbk1 * fdbk1 * 8.0, fdbk2 * fdbk2);
 
 	for (int i = 0; i < numSamples; ++i)
 	{

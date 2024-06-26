@@ -8,7 +8,7 @@
 #include <math.h>
 
 
-#define FDN_DELAY_NUM 32     //fdn混响的delay line的个数
+#define FDN_DELAY_NUM 16     //fdn混响的delay line的个数
 #define FDN_MAX_DELAY 12000 //fdb每个delay line的最大长度 
 
 typedef struct _STEREO_FLOAT_
@@ -28,9 +28,9 @@ typedef struct _FDN_DATA_
 	//param
 	int32_t dlytimel[FDN_DELAY_NUM];//延迟时间
 	int32_t dlytimer[FDN_DELAY_NUM];//延迟时间
-	float b[FDN_DELAY_NUM];//输入
-	float c[FDN_DELAY_NUM];//输出
-	float g[FDN_DELAY_NUM];//反馈
+	float b;//输入
+	float c;//输出
+	float g1, g2;//反馈
 	float mat[FDN_DELAY_NUM][FDN_DELAY_NUM];//反馈乘个矩阵
 	float sep;//左右声道分离度
 	//如果把反馈线部分左右互换，就可以视为在左右声道做分离
@@ -57,7 +57,7 @@ extern "C" {
 	void SetFDNRoomSize(FDNData* pdat, float size_l, float size_r, float mode);//设置房间大小[0,1]，以及分布形式[0,1]
 	void SetFDNSeparate(FDNData* pdat, float separate);//设置声道分离度[0,1]
 	void SetFDNDryWet(FDNData* pdat, float dry, float wet);//干湿比[0,1]
-	void SetFDNFeedback(FDNData* pdat, float feedback);//反馈[0,1]
+	void SetFDNFeedback(FDNData* pdat, float feedback1, float feedback2);//反馈[0,1]
 	//以下是反馈矩阵的选择
 	void FDNApplyHadamardMatrix(FDNData* pdat);//应用Hadamard矩阵(据说是很好的一种)
 	void FDNApplyRandomMatrix(FDNData* pdat);  //应用随机矩阵(能允许任意FDN_DELAY_NUM)

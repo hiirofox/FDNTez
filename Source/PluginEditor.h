@@ -30,9 +30,9 @@ private:
 	// access the processor object that created it.
 	FDNTezAudioProcessor& audioProcessor;
 
-	LMKnob S_SIZEL,S_SIZER,S_MODE;
+	LMKnob S_SIZEL, S_SIZER, S_MODE;
 	LMKnob S_SEP;
-	LMKnob S_FDBK;
+	LMKnob S_FDBK1, S_FDBK2;
 	LMKnob S_DRY, S_WET;
 
 
