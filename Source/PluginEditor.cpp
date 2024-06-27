@@ -15,7 +15,7 @@ FDNTezAudioProcessorEditor::FDNTezAudioProcessorEditor(FDNTezAudioProcessor& p)
 {
 	// Make sure that before the constructor has finished, you've set the
 	// editor's size to whatever you need it to be.
-	setSize(64 * 6, 64 * 2 + 64);
+	setSize(64 * 6, 64 * 4);
 
 	S_SIZEL.setText("SIZE-L");
 	S_SIZER.setText("SIZE-R");
@@ -23,6 +23,7 @@ FDNTezAudioProcessorEditor::FDNTezAudioProcessorEditor(FDNTezAudioProcessor& p)
 	S_SEP.setText("SEP");
 	S_FDBK1.setText("FDBK1");
 	S_FDBK2.setText("FDBK2");
+	S_FDBK3.setText("FDBK3");
 	S_DRY.setText("DRY");
 	S_WET.setText("WET");
 
@@ -32,6 +33,7 @@ FDNTezAudioProcessorEditor::FDNTezAudioProcessorEditor(FDNTezAudioProcessor& p)
 	S_SEP.ParamLink(audioProcessor.GetParams(), "sep");
 	S_FDBK1.ParamLink(audioProcessor.GetParams(), "fdbk1");
 	S_FDBK2.ParamLink(audioProcessor.GetParams(), "fdbk2");
+	S_FDBK3.ParamLink(audioProcessor.GetParams(), "fdbk3");
 	S_DRY.ParamLink(audioProcessor.GetParams(), "dry");
 	S_WET.ParamLink(audioProcessor.GetParams(), "wet");
 
@@ -41,6 +43,7 @@ FDNTezAudioProcessorEditor::FDNTezAudioProcessorEditor(FDNTezAudioProcessor& p)
 	addAndMakeVisible(S_SEP);
 	addAndMakeVisible(S_FDBK1);
 	addAndMakeVisible(S_FDBK2);
+	addAndMakeVisible(S_FDBK3);
 	addAndMakeVisible(S_DRY);
 	addAndMakeVisible(S_WET);
 }
@@ -73,6 +76,7 @@ void FDNTezAudioProcessorEditor::resized()
 	S_SEP.setPos(64 * 1 + 64, 64 * 2);
 	S_FDBK1.setPos(64 * 2 + 64, 64 * 1);
 	S_FDBK2.setPos(64 * 2 + 64, 64 * 2);
+	S_FDBK3.setPos(64 * 2 + 64, 64 * 3);
 	S_DRY.setPos(64 * 4 + 64, 64 * 1);
 	S_WET.setPos(64 * 4 + 64, 64 * 2);
 }

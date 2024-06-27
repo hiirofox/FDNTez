@@ -29,7 +29,7 @@ typedef struct _FDN_DATA_
 	int32_t dlytimer[FDN_DELAY_NUM];//延迟时间
 	float b;//输入
 	float c;//输出
-	float g1[FDN_DELAY_NUM], g2[FDN_DELAY_NUM];//反馈
+	float g1[FDN_DELAY_NUM], g2[FDN_DELAY_NUM], ap[FDN_DELAY_NUM];//反馈
 	float mat[FDN_DELAY_NUM][FDN_DELAY_NUM];//反馈乘个矩阵
 	float sep;//左右声道分离度
 	//如果把反馈线部分左右互换，就可以视为在左右声道做分离

@@ -139,6 +139,8 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\dsp\apf.c"/>
+    <ClCompile Include="..\..\Source\dsp\freq_shift.c"/>
     <ClCompile Include="..\..\Source\dsp\fdn_reverb.c"/>
     <ClCompile Include="..\..\Source\PluginProcessor.cpp"/>
     <ClCompile Include="..\..\Source\PluginEditor.cpp"/>
@@ -2408,6 +2410,8 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\dsp\apf.h"/>
+    <ClInclude Include="..\..\Source\dsp\freq_shift.h"/>
     <ClInclude Include="..\..\Source\dsp\fdn_reverb.h"/>
     <ClInclude Include="..\..\Source\ui\LM_slider.h"/>
     <ClInclude Include="..\..\Source\PluginProcessor.h"/>
