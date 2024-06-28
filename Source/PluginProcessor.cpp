@@ -40,7 +40,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout FDNTezAudioProcessor::create
 	layout.add(std::make_unique<juce::AudioParameterFloat>("sep", "SEPARATE", 0, 1.0, 0.5));
 	layout.add(std::make_unique<juce::AudioParameterFloat>("fdbk1", "FEEDBACK1", 0, 1.0, 0.0));
 	layout.add(std::make_unique<juce::AudioParameterFloat>("fdbk2", "FEEDBACK2", 0, 1.0, 0.0));
-	layout.add(std::make_unique<juce::AudioParameterFloat>("fdbk3", "FEEDBACK2", 0, 1.0, 0.0));
+	layout.add(std::make_unique<juce::AudioParameterFloat>("fdbk3", "FEEDBACK3", 0, 1.0, 0.0));
+	layout.add(std::make_unique<juce::AudioParameterFloat>("fsfq", "FSFREQ", -1.0, 1.0, 0.0));
 
 	layout.add(std::make_unique<juce::AudioParameterFloat>("dry", "DRY", 0, 1.0, 0.25));
 	layout.add(std::make_unique<juce::AudioParameterFloat>("wet", "WET", 0, 1.0, 0.75));
@@ -177,14 +178,15 @@ void FDNTezAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::
 	float fdbk1 = *Params.getRawParameterValue("fdbk1");
 	float fdbk2 = *Params.getRawParameterValue("fdbk2");
 	float fdbk3 = *Params.getRawParameterValue("fdbk3");
+	float fsfq = *Params.getRawParameterValue("fsfq");
 	float dry = *Params.getRawParameterValue("dry");
 	float wet = *Params.getRawParameterValue("wet");
 
 	SetFDNRoomSize(&revb, sizel, sizer, sizmode * sizmode);
 	SetFDNSeparate(&revb, sep);
 	SetFDNDryWet(&revb, dry, wet);
-	SetFDNFeedback(&revb, fdbk1 * fdbk1 * 8.0, fdbk2 * fdbk2);
-
+	SetFDNFeedback(&revb, fdbk1 * fdbk1 * 8.0, fdbk2 * fdbk2, fdbk3 * fdbk3);
+	SetFDNFreqShift(&revb, fsfq * fsfq * (fsfq > 0 ? 1 : -1) * 100.0);
 	for (int i = 0; i < numSamples; ++i)
 	{
 		float datl = recbufl[i];

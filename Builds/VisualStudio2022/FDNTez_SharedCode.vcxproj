@@ -2410,6 +2410,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\dsp\table.h"/>
     <ClInclude Include="..\..\Source\dsp\apf.h"/>
     <ClInclude Include="..\..\Source\dsp\freq_shift.h"/>
     <ClInclude Include="..\..\Source\dsp\fdn_reverb.h"/>

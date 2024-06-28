@@ -5,6 +5,7 @@
   <MAINGROUP id="gEXl46" name="FDNTez">
     <GROUP id="{A03A65F5-1473-A240-B097-FC239BC67B52}" name="Source">
       <GROUP id="{46CF067D-CD0B-28B9-424D-6EEFD9724976}" name="dsp">
+        <FILE id="gqoOuR" name="table.h" compile="0" resource="0" file="Source/dsp/table.h"/>
         <FILE id="cJTM4y" name="apf.c" compile="1" resource="0" file="Source/dsp/apf.c"/>
         <FILE id="S4uuB5" name="apf.h" compile="0" resource="0" file="Source/dsp/apf.h"/>
         <FILE id="VFOKOh" name="freq_shift.c" compile="1" resource="0" file="Source/dsp/freq_shift.c"/>

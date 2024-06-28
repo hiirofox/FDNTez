@@ -33,6 +33,7 @@ private:
 	LMKnob S_SIZEL, S_SIZER, S_MODE;
 	LMKnob S_SEP;
 	LMKnob S_FDBK1, S_FDBK2, S_FDBK3;
+	LMKnob S_FSFQ;
 	LMKnob S_DRY, S_WET;
 
 

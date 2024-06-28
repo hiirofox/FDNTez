@@ -3048,6 +3048,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\dsp\table.h">
+      <Filter>FDNTez\Source\dsp</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\dsp\apf.h">
       <Filter>FDNTez\Source\dsp</Filter>
     </ClInclude>
